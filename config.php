@@ -64,6 +64,18 @@
     define("CERTIFICATE_OWNER_PARAMETER", "SSL_CLIENT_S_DN_CN");
 
 /**********************************************************************************
+ *  PHP Path settings
+ */
+    ini_set('include_path',
+        BASE_PATH. "include/" . PATH_SEPARATOR .
+        BASE_PATH. PATH_SEPARATOR .
+        ini_get('include_path') . PATH_SEPARATOR .
+        "/usr/share/php/" . PATH_SEPARATOR .
+        "/usr/share/php5/" . PATH_SEPARATOR .
+        "/usr/share/pear/" . PATH_SEPARATOR .
+        "/usr/share/awl/inc");
+
+/**********************************************************************************
  *  Default FileStateMachine settings
  */
     define('STATE_DIR', '/var/lib/z-push/');
@@ -86,10 +98,10 @@
  *  ones, e.g. setting to LOGLEVEL_DEBUG will also output LOGLEVEL_FATAL, LOGLEVEL_ERROR,
  *  LOGLEVEL_WARN and LOGLEVEL_INFO level entries.
  */
-    define('LOGFILEDIR', '/var/log/z-push/');
+    define('LOGFILEDIR', 'log/');
     define('LOGFILE', LOGFILEDIR . 'z-push.log');
     define('LOGERRORFILE', LOGFILEDIR . 'z-push-error.log');
-    define('LOGLEVEL', LOGLEVEL_INFO);
+    define('LOGLEVEL', LOGLEVEL_WARN);
     define('LOGAUTHFAIL', false);
 
 
@@ -185,7 +197,7 @@
  *  Backend settings
  */
     // the backend data provider
-    define('BACKEND_PROVIDER', '');
+    define('BACKEND_PROVIDER', 'BackendCombined');
 
 /**********************************************************************************
  *  Search provider settings

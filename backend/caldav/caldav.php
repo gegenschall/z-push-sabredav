@@ -117,7 +117,19 @@ class BackendCalDAV extends BackendDiff {
 	public function GetFolder($id)
 	{
 		ZLog::Write(LOGLEVEL_DEBUG, sprintf("BackendCalDAV->GetFolder('%s')", $id));
-		$val = $this->_caldav->GetCalendarDetails($this->_caldav_path . substr($id, 1) .  "/");
+		$val = $this->_caldav->GetCalendarDetails($this->_caldav_path);
+
+		$calendars = $this->_caldav->FindCalendars();
+		foreach($calendars as $cal) {
+	       $fpath = explode("/", $cal->url, -1);
+	       $folderid = array_pop($fpath);
+	       
+	       if ($folderid == substr($id, 1)) {
+               $val->displayname = $cal->displayname;
+               break;
+	       }
+		}
+
 		$folder = new SyncFolder();
 		$folder->parentid = "0";
 		$folder->displayname = $val->displayname;
